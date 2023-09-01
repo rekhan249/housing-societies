@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "446763935758",
+    "project_id": "house-society-9cf1a",
+    "storage_bucket": "house-society-9cf1a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:446763935758:android:7f06745d175310c3da345f",
+        "android_client_info": {
+          "package_name": "com.example.housing_society"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "446763935758-hlf8tcs39png8oloshrbsrd2is11qvn0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXeEE1E3bXR7yxm8mSdXplBD9GIW8yjmE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "446763935758-hlf8tcs39png8oloshrbsrd2is11qvn0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
