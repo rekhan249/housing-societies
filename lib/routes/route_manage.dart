@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:housing_society/administer/add_services.dart';
+import 'package:housing_society/administer/admin_panel.dart';
+import 'package:housing_society/administer/dashboard.dart';
+import 'package:housing_society/administer/delete_services.dart';
+import 'package:housing_society/administer/update_services.dart';
 import 'package:housing_society/pages_screen/home_page.dart';
 import 'package:housing_society/pages_screen/login_page.dart';
 import 'package:housing_society/pages_screen/profile_details.dart';
@@ -17,6 +22,16 @@ Route<dynamic> generateRoutes(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => const ProfileDetails());
     case ServicesScreen.routeName:
       return MaterialPageRoute(builder: (context) => const ServicesScreen());
+    case AdminPanel.routeName:
+      return MaterialPageRoute(builder: (context) => const AdminPanel());
+    case Dashboard.routeName:
+      return MaterialPageRoute(builder: (context) => const Dashboard());
+    case AddServices.routeName:
+      return MaterialPageRoute(builder: (context) => const AddServices());
+    case UpdateServices.routeName:
+      return MaterialPageRoute(builder: (context) => const UpdateServices());
+    case DeletedServices.routeName:
+      return MaterialPageRoute(builder: (context) => const DeletedServices());
     default:
       return MaterialPageRoute(builder: (context) => const HomePage());
   }

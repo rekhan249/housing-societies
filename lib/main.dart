@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:housing_society/bottom_nav/bottom_navigation.dart';
-import 'package:housing_society/pages_screen/home_page.dart';
 import 'package:housing_society/providers/date_provider.dart';
 import 'package:housing_society/providers/dropdown_provider.dart';
 import 'package:housing_society/providers/google_sign_in_provider.dart';

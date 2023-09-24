@@ -63,7 +63,12 @@ class _SignUpPageState extends State<SignUpPage> {
               padding: const EdgeInsets.only(left: 25, right: 25, bottom: 20),
               child: ListView(
                 children: [
-                  SizedBox(height: 80.h),
+                  SizedBox(height: 20.h),
+                  Center(
+                      child: Image(
+                          image: const AssetImage("assets/images/login.png"),
+                          height: 250.h,
+                          width: 250.w)),
                   Center(
                       child: Text('Create Account Here',
                           style: TextStyle(

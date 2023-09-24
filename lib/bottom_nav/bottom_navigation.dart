@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:housing_society/administer/admin_panel.dart';
 import 'package:housing_society/pages_screen/home_page.dart';
+import 'package:housing_society/pages_screen/profile_details.dart';
+import 'package:housing_society/pages_screen/setting_page.dart';
+import 'package:housing_society/society_service/all_services.dart';
 
 class BottomNavSocities extends StatefulWidget {
   const BottomNavSocities({super.key});
@@ -13,9 +17,10 @@ class _BottomNavSocitiesState extends State<BottomNavSocities> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    HomePage(),
-    HomePage(),
-    HomePage(),
+    ServicesScreen(),
+    ProfileDetails(),
+    SettingScreen(),
+    AdminPanel()
   ];
 
   void _onItemTapped(int index) {
@@ -50,6 +55,11 @@ class _BottomNavSocitiesState extends State<BottomNavSocities> {
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Settings',
+            backgroundColor: Color.fromARGB(255, 185, 10, 86),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.admin_panel_settings),
+            label: 'Admin Panel',
             backgroundColor: Color.fromARGB(255, 185, 10, 86),
           ),
         ],

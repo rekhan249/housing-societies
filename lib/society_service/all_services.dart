@@ -14,6 +14,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        titleSpacing: 60.h,
         automaticallyImplyLeading: false,
         backgroundColor: const Color.fromARGB(255, 5, 78, 139),
         title: Text(
@@ -24,125 +25,174 @@ class _ServicesScreenState extends State<ServicesScreen> {
               color: Colors.white),
         ),
       ),
-      body: Column(
-        children: [
-          GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2),
-            shrinkWrap: true,
-            itemCount: 05,
-            itemBuilder: (context, index) {
-              if (index == 0) {
-                return GestureDetector(
-                  onTap: () {},
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Card(
-                        color: const Color.fromARGB(255, 185, 10, 86),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Image.asset("assets/images/services.png"),
+            SizedBox(height: 20.h),
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: 05,
+              itemBuilder: (context, index) {
+                if (index == 0) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Card(
                         elevation: 5,
-                        child: CircleAvatar(
-                          radius: 70.r,
-                          child: Image.asset('assets/images/discovery.png'),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.asset('assets/images/cabling.png',
+                                  fit: BoxFit.fill, height: 80.h, width: 100.w),
+                            ),
+                            SizedBox(width: 10.h),
+                            Column(
+                              children: [
+                                Text('Cables Services',
+                                    style: TextStyle(
+                                        color: const Color.fromARGB(
+                                            255, 185, 10, 86),
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.bold)),
+                              ],
+                            )
+                          ],
                         ),
                       ),
-                      Text('Discovery',
-                          style: TextStyle(
-                              color: const Color.fromARGB(255, 185, 10, 86),
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold))
-                    ],
-                  ),
-                );
-              } else if (index == 1) {
-                return GestureDetector(
-                  onTap: () {},
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Card(
-                          color: const Color.fromARGB(255, 185, 10, 86),
-                          elevation: 5,
-                          child: CircleAvatar(
-                              radius: 70.r,
+                    ),
+                  );
+                } else if (index == 1) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Card(
+                        elevation: 5,
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.asset('assets/images/internet.png',
+                                  fit: BoxFit.fill, height: 80.h, width: 100.w),
+                            ),
+                            SizedBox(width: 10.h),
+                            Column(
+                              children: [
+                                Text('Internet Services',
+                                    style: TextStyle(
+                                        color: const Color.fromARGB(
+                                            255, 185, 10, 86),
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.bold)),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                } else if (index == 2) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Card(
+                        elevation: 5,
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.asset('assets/images/plumber.png',
+                                  fit: BoxFit.fill, height: 80.h, width: 100.w),
+                            ),
+                            SizedBox(width: 10.h),
+                            Column(
+                              children: [
+                                Text('Plumber Services',
+                                    style: TextStyle(
+                                        color: const Color.fromARGB(
+                                            255, 185, 10, 86),
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.bold)),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                } else if (index == 3) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Card(
+                        elevation: 5,
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
                               child: Image.asset(
-                                  'assets/images/distributed.png'))),
-                      Text('Distributed',
-                          style: TextStyle(
-                              color: const Color.fromARGB(255, 185, 10, 86),
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold))
-                    ],
-                  ),
-                );
-              } else if (index == 2) {
-                return GestureDetector(
-                  onTap: () {},
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Card(
-                          color: const Color.fromARGB(255, 185, 10, 86),
-                          elevation: 5,
-                          child: CircleAvatar(
-                              radius: 70.r,
-                              child: Image.asset('assets/images/explore.png'))),
-                      Text('Explore',
-                          style: TextStyle(
-                              color: const Color.fromARGB(255, 185, 10, 86),
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold))
-                    ],
-                  ),
-                );
-              } else if (index == 3) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, ServicesScreen.routeName);
-                  },
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Card(
-                          color: const Color.fromARGB(255, 185, 10, 86),
-                          elevation: 5,
-                          child: CircleAvatar(
-                              radius: 70.r,
-                              child: Image.asset('assets/images/service.png'))),
-                      Text('Service',
-                          style: TextStyle(
-                              color: const Color.fromARGB(255, 185, 10, 86),
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold))
-                    ],
-                  ),
-                );
-              } else if (index == 4) {
-                return GestureDetector(
-                  onTap: () {},
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Card(
-                          color: const Color.fromARGB(255, 185, 10, 86),
-                          elevation: 5,
-                          child: CircleAvatar(
-                              radius: 70.r,
-                              child:
-                                  Image.asset('assets/images/debitcard.png'))),
-                      Text('Debitcard',
-                          style: TextStyle(
-                              color: const Color.fromARGB(255, 185, 10, 86),
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold))
-                    ],
-                  ),
-                );
-              }
-              return null;
-            },
-          )
-        ],
+                                  'assets/images/electrician.png',
+                                  fit: BoxFit.fill,
+                                  height: 80.h,
+                                  width: 100.w),
+                            ),
+                            SizedBox(width: 10.h),
+                            Column(
+                              children: [
+                                Text('Electric Services',
+                                    style: TextStyle(
+                                        color: const Color.fromARGB(
+                                            255, 185, 10, 86),
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.bold)),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                } else if (index == 4) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Card(
+                        elevation: 5,
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.asset('assets/images/cleaning.png',
+                                  fit: BoxFit.fill, height: 80.h, width: 100.w),
+                            ),
+                            SizedBox(width: 10.h),
+                            Column(
+                              children: [
+                                Text('Cleaner Services',
+                                    style: TextStyle(
+                                        color: const Color.fromARGB(
+                                            255, 185, 10, 86),
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.bold)),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                }
+                return null;
+              },
+            )
+          ],
+        ),
       ),
     );
   }

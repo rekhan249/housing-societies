@@ -66,9 +66,13 @@ class _LoginPageState extends State<LoginPage> {
                       const EdgeInsets.only(left: 25, right: 25, bottom: 20),
                   child: ListView(
                     children: [
-                      SizedBox(
-                        height: 150.h,
-                      ),
+                      SizedBox(height: 40.h),
+                      Center(
+                          child: Image(
+                              image:
+                                  const AssetImage("assets/images/login.png"),
+                              height: 250.h,
+                              width: 250.w)),
                       Center(
                           child: Text('Login Page',
                               style: TextStyle(
