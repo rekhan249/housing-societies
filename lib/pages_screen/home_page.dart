@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:housing_society/notification_services.dart/notifications.dart';
 import 'package:housing_society/society_service/all_services.dart';
+import 'package:housing_society/society_service/payment_method.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = 'home-page';
@@ -11,6 +13,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  NotifikationService notifikationService = NotifikationService();
+
+  @override
+  void initState() {
+    notifikationService.reqstNotificationPermission();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -215,83 +225,87 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10.w),
                 child: Container(
-                  height: 110.h,
+                  height: 150.h,
                   width: double.infinity,
                   decoration: const BoxDecoration(color: Colors.transparent),
-                  child: ListView.builder(
-                    itemCount: 05,
+                  child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 1),
+                    itemCount: 2,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
+                      // if (index == 0) {
+                      //   return GestureDetector(
+                      //     onTap: () {},
+                      //     child: Column(
+                      //       mainAxisAlignment: MainAxisAlignment.center,
+                      //       children: [
+                      //         Card(
+                      //           color: const Color.fromARGB(255, 185, 10, 86),
+                      //           elevation: 5,
+                      //           child: CircleAvatar(
+                      //             radius: 35.r,
+                      //             child: Image.asset(
+                      //               'assets/images/discovery.png',
+                      //             ),
+                      //           ),
+                      //         ),
+                      //         Text('Discovery',
+                      //             style: TextStyle(
+                      //                 color: const Color.fromARGB(
+                      //                     255, 185, 10, 86),
+                      //                 fontSize: 14.sp,
+                      //                 fontWeight: FontWeight.bold))
+                      //       ],
+                      //     ),
+                      //   );
+                      // } else if (index == 1) {
+                      //   return GestureDetector(
+                      //     onTap: () {},
+                      //     child: Column(
+                      //       mainAxisAlignment: MainAxisAlignment.center,
+                      //       children: [
+                      //         Card(
+                      //             color: const Color.fromARGB(255, 185, 10, 86),
+                      //             elevation: 5,
+                      //             child: CircleAvatar(
+                      //                 radius: 35.r,
+                      //                 child: Image.asset(
+                      //                     'assets/images/distributed.png'))),
+                      //         Text('Distributed',
+                      //             style: TextStyle(
+                      //                 color: const Color.fromARGB(
+                      //                     255, 185, 10, 86),
+                      //                 fontSize: 14.sp,
+                      //                 fontWeight: FontWeight.bold))
+                      //       ],
+                      //     ),
+                      //   );
+                      // } else if (index == 2) {
+                      //   return GestureDetector(
+                      //     onTap: () {},
+                      //     child: Column(
+                      //       mainAxisAlignment: MainAxisAlignment.center,
+                      //       children: [
+                      //         Card(
+                      //             color: const Color.fromARGB(255, 185, 10, 86),
+                      //             elevation: 5,
+                      //             child: CircleAvatar(
+                      //                 radius: 35.r,
+                      //                 child: Image.asset(
+                      //                     'assets/images/explore.png'))),
+                      //         Text('Explore',
+                      //             style: TextStyle(
+                      //                 color: const Color.fromARGB(
+                      //                     255, 185, 10, 86),
+                      //                 fontSize: 14.sp,
+                      //                 fontWeight: FontWeight.bold))
+                      //       ],
+                      //     ),
+                      //   );
+                      // }
                       if (index == 0) {
-                        return GestureDetector(
-                          onTap: () {},
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Card(
-                                color: const Color.fromARGB(255, 185, 10, 86),
-                                elevation: 5,
-                                child: CircleAvatar(
-                                  radius: 35.r,
-                                  child: Image.asset(
-                                    'assets/images/discovery.png',
-                                  ),
-                                ),
-                              ),
-                              Text('Discovery',
-                                  style: TextStyle(
-                                      color: const Color.fromARGB(
-                                          255, 185, 10, 86),
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.bold))
-                            ],
-                          ),
-                        );
-                      } else if (index == 1) {
-                        return GestureDetector(
-                          onTap: () {},
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Card(
-                                  color: const Color.fromARGB(255, 185, 10, 86),
-                                  elevation: 5,
-                                  child: CircleAvatar(
-                                      radius: 35.r,
-                                      child: Image.asset(
-                                          'assets/images/distributed.png'))),
-                              Text('Distributed',
-                                  style: TextStyle(
-                                      color: const Color.fromARGB(
-                                          255, 185, 10, 86),
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.bold))
-                            ],
-                          ),
-                        );
-                      } else if (index == 2) {
-                        return GestureDetector(
-                          onTap: () {},
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Card(
-                                  color: const Color.fromARGB(255, 185, 10, 86),
-                                  elevation: 5,
-                                  child: CircleAvatar(
-                                      radius: 35.r,
-                                      child: Image.asset(
-                                          'assets/images/explore.png'))),
-                              Text('Explore',
-                                  style: TextStyle(
-                                      color: const Color.fromARGB(
-                                          255, 185, 10, 86),
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.bold))
-                            ],
-                          ),
-                        );
-                      } else if (index == 3) {
                         return GestureDetector(
                           onTap: () {
                             Navigator.pushNamed(
@@ -304,7 +318,7 @@ class _HomePageState extends State<HomePage> {
                                   color: const Color.fromARGB(255, 185, 10, 86),
                                   elevation: 5,
                                   child: CircleAvatar(
-                                      radius: 35.r,
+                                      radius: 60.r,
                                       child: Image.asset(
                                           'assets/images/service.png'))),
                               Text('Service',
@@ -316,9 +330,12 @@ class _HomePageState extends State<HomePage> {
                             ],
                           ),
                         );
-                      } else if (index == 4) {
+                      } else if (index == 1) {
                         return GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, PaymentMethodology.routeName);
+                          },
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -326,7 +343,7 @@ class _HomePageState extends State<HomePage> {
                                   color: const Color.fromARGB(255, 185, 10, 86),
                                   elevation: 5,
                                   child: CircleAvatar(
-                                      radius: 35.r,
+                                      radius: 60.r,
                                       child: Image.asset(
                                           'assets/images/debitcard.png'))),
                               Text('Debitcard',
@@ -357,16 +374,92 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10.w),
                 child: Container(
-                  height: 110.h,
+                  height: 150.h,
                   width: double.infinity,
                   decoration: const BoxDecoration(color: Colors.transparent),
-                  child: ListView.builder(
-                    itemCount: 05,
+                  child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 1),
+                    itemCount: 2,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
+                      // if (index == 0) {
+                      //   return GestureDetector(
+                      //     onTap: () {},
+                      //     child: Column(
+                      //       mainAxisAlignment: MainAxisAlignment.center,
+                      //       children: [
+                      //         Card(
+                      //           color: const Color.fromARGB(255, 185, 10, 86),
+                      //           elevation: 5,
+                      //           child: CircleAvatar(
+                      //             radius: 35.r,
+                      //             child: Image.asset(
+                      //               'assets/images/discovery.png',
+                      //             ),
+                      //           ),
+                      //         ),
+                      //         Text('Discovery',
+                      //             style: TextStyle(
+                      //                 color: const Color.fromARGB(
+                      //                     255, 185, 10, 86),
+                      //                 fontSize: 14.sp,
+                      //                 fontWeight: FontWeight.bold))
+                      //       ],
+                      //     ),
+                      //   );
+                      // } else if (index == 1) {
+                      //   return GestureDetector(
+                      //     onTap: () {},
+                      //     child: Column(
+                      //       mainAxisAlignment: MainAxisAlignment.center,
+                      //       children: [
+                      //         Card(
+                      //             color: const Color.fromARGB(255, 185, 10, 86),
+                      //             elevation: 5,
+                      //             child: CircleAvatar(
+                      //                 radius: 35.r,
+                      //                 child: Image.asset(
+                      //                     'assets/images/distributed.png'))),
+                      //         Text('Distributed',
+                      //             style: TextStyle(
+                      //                 color: const Color.fromARGB(
+                      //                     255, 185, 10, 86),
+                      //                 fontSize: 14.sp,
+                      //                 fontWeight: FontWeight.bold))
+                      //       ],
+                      //     ),
+                      //   );
+                      // } else if (index == 2) {
+                      //   return GestureDetector(
+                      //     onTap: () {},
+                      //     child: Column(
+                      //       mainAxisAlignment: MainAxisAlignment.center,
+                      //       children: [
+                      //         Card(
+                      //             color: const Color.fromARGB(255, 185, 10, 86),
+                      //             elevation: 5,
+                      //             child: CircleAvatar(
+                      //                 radius: 35.r,
+                      //                 child: Image.asset(
+                      //                     'assets/images/explore.png'))),
+                      //         Text('Explore',
+                      //             style: TextStyle(
+                      //                 color: const Color.fromARGB(
+                      //                     255, 185, 10, 86),
+                      //                 fontSize: 14.sp,
+                      //                 fontWeight: FontWeight.bold))
+                      //       ],
+                      //     ),
+                      //   );
+                      // }
                       if (index == 0) {
                         return GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, ServicesScreen.routeName);
+                          },
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -374,10 +467,10 @@ class _HomePageState extends State<HomePage> {
                                   color: const Color.fromARGB(255, 185, 10, 86),
                                   elevation: 5,
                                   child: CircleAvatar(
-                                      radius: 35.r,
+                                      radius: 60.r,
                                       child: Image.asset(
-                                          'assets/images/discovery.png'))),
-                              Text('Discovery',
+                                          'assets/images/service.png'))),
+                              Text('Service',
                                   style: TextStyle(
                                       color: const Color.fromARGB(
                                           255, 185, 10, 86),
@@ -396,73 +489,7 @@ class _HomePageState extends State<HomePage> {
                                   color: const Color.fromARGB(255, 185, 10, 86),
                                   elevation: 5,
                                   child: CircleAvatar(
-                                      radius: 35.r,
-                                      child: Image.asset(
-                                          'assets/images/distributed.png'))),
-                              Text('Distributed',
-                                  style: TextStyle(
-                                      color: const Color.fromARGB(
-                                          255, 185, 10, 86),
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.bold))
-                            ],
-                          ),
-                        );
-                      } else if (index == 2) {
-                        return GestureDetector(
-                          onTap: () {},
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Card(
-                                  color: const Color.fromARGB(255, 185, 10, 86),
-                                  elevation: 5,
-                                  child: CircleAvatar(
-                                      radius: 35.r,
-                                      child: Image.asset(
-                                          'assets/images/explore.png'))),
-                              Text('Explore',
-                                  style: TextStyle(
-                                      color: const Color.fromARGB(
-                                          255, 185, 10, 86),
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.bold))
-                            ],
-                          ),
-                        );
-                      } else if (index == 3) {
-                        return GestureDetector(
-                          onTap: () {},
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Card(
-                                  color: const Color.fromARGB(255, 185, 10, 86),
-                                  elevation: 5,
-                                  child: CircleAvatar(
-                                      radius: 35.r,
-                                      child: Image.asset(
-                                          'assets/images/service.png'))),
-                              Text('Service',
-                                  style: TextStyle(
-                                      color: const Color.fromARGB(
-                                          255, 185, 10, 86),
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.bold))
-                            ],
-                          ),
-                        );
-                      } else if (index == 4) {
-                        return GestureDetector(
-                          onTap: () {},
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Card(
-                                  color: const Color.fromARGB(255, 185, 10, 86),
-                                  elevation: 5,
-                                  child: CircleAvatar(
-                                      radius: 35.r,
+                                      radius: 60.r,
                                       child: Image.asset(
                                           'assets/images/debitcard.png'))),
                               Text('Debitcard',

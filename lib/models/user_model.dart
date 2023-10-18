@@ -1,6 +1,7 @@
 class UserModel {
   final String uid;
   final String userName;
+  final Map<String, dynamic> userType;
   final String phoneNum;
   final String email;
   final String password;
@@ -8,6 +9,7 @@ class UserModel {
   UserModel(
       {required this.uid,
       required this.userName,
+      required this.userType,
       required this.phoneNum,
       required this.email,
       required this.password});
@@ -15,6 +17,7 @@ class UserModel {
   factory UserModel.fromMap(map) => UserModel(
       uid: map['uid'] ?? '',
       userName: map['userName'] ?? '',
+      userType: map['userType'] ?? '',
       phoneNum: map['phoneNum'] ?? '',
       email: map['email'] ?? '',
       password: map['password'] ?? '');
@@ -23,6 +26,7 @@ class UserModel {
     return {
       'uid': uid,
       'userName': userName,
+      'userType': userType,
       'phoneNum': phoneNum,
       'email': email,
       'password': password

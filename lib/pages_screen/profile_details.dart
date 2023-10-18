@@ -52,12 +52,17 @@ class _ProfileDetailsState extends State<ProfileDetails> {
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _phoneNmbrController.dispose();
-    _cniController.dispose();
-    _dateController.dispose();
-    _addressController.dispose();
+    _nameController.clear();
+    _phoneNmbrController.clear();
+    _cniController.clear();
+    _dateController.clear();
+    _addressController.clear();
+
     super.dispose();
+    Provider.of<GenderDropDownProvider>(context, listen: false).dispose();
+    Provider.of<CityCountryDropDownProvider>(context, listen: false).dispose();
+    Provider.of<CityCountryDropDownProvider>(context, listen: false).dispose();
+    Provider.of<GalleryImageProvider>(context, listen: false).dispose();
   }
 
   @override

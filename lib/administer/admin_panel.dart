@@ -4,7 +4,6 @@ import 'package:housing_society/administer/add_services.dart';
 import 'package:housing_society/administer/dashboard.dart';
 import 'package:housing_society/administer/delete_services.dart';
 import 'package:housing_society/administer/update_services.dart';
-import 'package:housing_society/society_service/all_services.dart';
 
 class AdminPanel extends StatefulWidget {
   static const routeName = "/admin-panel";
@@ -19,12 +18,11 @@ class _AdminPanelState extends State<AdminPanel> {
   @override
   Widget build(BuildContext context) {
     return AdminScaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 5, 78, 139),
+          backgroundColor: const Color.fromARGB(255, 14, 53, 85),
           title: const Text('Admin Panel',
               style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold))),
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
       sideBar: SideBar(
         activeBackgroundColor: Colors.white,
         backgroundColor: Colors.white,
@@ -45,10 +43,6 @@ class _AdminPanelState extends State<AdminPanel> {
               title: 'Delete Services',
               route: DeletedServices.routeName,
               icon: Icons.delete),
-          AdminMenuItem(
-              title: 'All Services',
-              route: ServicesScreen.routeName,
-              icon: Icons.shop),
         ],
         selectedRoute: Dashboard.routeName,
         activeIconColor: const Color.fromARGB(255, 185, 10, 86),
@@ -70,10 +64,6 @@ class _AdminPanelState extends State<AdminPanel> {
           } else if (item.route == DeletedServices.routeName) {
             setState(() {
               selectedScreen = const DeletedServices();
-            });
-          } else if (item.route == ServicesScreen.routeName) {
-            setState(() {
-              selectedScreen = const ServicesScreen();
             });
           }
         },

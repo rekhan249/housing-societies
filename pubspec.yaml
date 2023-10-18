@@ -49,6 +49,10 @@ dependencies:
   image_picker: ^1.0.4
   intl: ^0.18.1
   flutter_admin_scaffold: ^1.2.0
+  flutter_credit_card_new: ^0.0.4
+  flutter_local_notifications: ^16.1.0
+  firebase_messaging: ^14.7.0
+  app_settings: ^5.1.1
 
 dev_dependencies:
   flutter_test:

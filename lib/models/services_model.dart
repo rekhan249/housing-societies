@@ -1,14 +1,15 @@
+import 'dart:typed_data';
+
 class ServiceModel {
   final String sid;
   final String name;
   final String phoneNumber;
   final String email;
   final String address;
-  final List<String> serviceTypes;
-  final double rating;
-  final int numberOfRatings;
+  final String serviceTypes;
   final double hourlyRate;
-  final String imageUrl;
+  final String desc;
+  final Uint8List imageUrl;
 
   ServiceModel(
       {required this.sid,
@@ -17,9 +18,8 @@ class ServiceModel {
       required this.email,
       required this.address,
       required this.serviceTypes,
-      required this.rating,
-      required this.numberOfRatings,
       required this.hourlyRate,
+      required this.desc,
       required this.imageUrl});
 
   factory ServiceModel.fromJson(Map<String, dynamic> json) {
@@ -29,10 +29,9 @@ class ServiceModel {
       phoneNumber: json['phoneNumber'],
       email: json['email'],
       address: json['address'],
-      serviceTypes: List<String>.from(json['serviceTypes']),
-      rating: json['rating'].toDouble(),
-      numberOfRatings: json['numberOfRatings'],
+      serviceTypes: json['serviceTypes'],
       hourlyRate: json['hourlyRate'].toDouble(),
+      desc: json['desc'],
       imageUrl: json['imageUrl'],
     );
   }
@@ -45,9 +44,8 @@ class ServiceModel {
       'email': email,
       'address': address,
       'serviceTypes': serviceTypes,
-      'rating': rating,
-      'numberOfRatings': numberOfRatings,
       'hourlyRate': hourlyRate,
+      'desc': desc,
       'imageUrl': imageUrl
     };
   }

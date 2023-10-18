@@ -1,8 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:housing_society/models/radio_model.dart';
 import 'package:housing_society/pages_screen/login_page.dart';
 import 'package:housing_society/providers/password_provider.dart';
+import 'package:housing_society/providers/serviceProAvail_provider.dart';
 import 'package:housing_society/providers/signup_provider.dart';
 import 'package:housing_society/widgets/email_field.dart';
 import 'package:housing_society/widgets/name_field.dart';
@@ -21,6 +23,7 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
+
   final _emailController = TextEditingController();
   final _phoneNmbrController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -33,20 +36,22 @@ class _SignUpPageState extends State<SignUpPage> {
     }
     _formKey.currentState!.save();
     Provider.of<SignUpProvider>(context, listen: false).onSubmittedSignUpForm(
-      context,
-      _nameController.text.trim(),
-      _emailController.text.trim(),
-      _phoneNmbrController.text.trim(),
-      _passwordController.text,
-    );
+        context,
+        _nameController.text.trim(),
+        _emailController.text.trim(),
+        _phoneNmbrController.text.trim(),
+        _passwordController.text,
+        Provider.of<ServiceProAvailProvider>(context, listen: false)
+            .selectedValue!
+            .toMap());
   }
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _phoneNmbrController.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
+    _nameController.clear();
+    _phoneNmbrController.clear();
+    _emailController.clear();
+    _passwordController.clear();
     super.dispose();
   }
 
@@ -54,6 +59,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     var passwordProvider =
         Provider.of<PasswordProvider>(context, listen: false);
+    Provider.of<ServiceProAvailProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: Colors.amber.shade100,
       body: SafeArea(
@@ -77,6 +83,20 @@ class _SignUpPageState extends State<SignUpPage> {
                               color: const Color.fromARGB(255, 5, 78, 139)))),
                   SizedBox(height: 20.h),
                   NameField(nameController: _nameController),
+                  SizedBox(height: 20.h),
+                  for (final option in serviceProAvail)
+                    Consumer<ServiceProAvailProvider>(
+                      builder: (context, availPro, child) => ListTile(
+                        title: Text(option.title),
+                        leading: Radio(
+                          value: option,
+                          groupValue: availPro.selectedValue,
+                          onChanged: (value) {
+                            availPro.setSelectedRadioTile(value);
+                          },
+                        ),
+                      ),
+                    ),
                   SizedBox(height: 20.h),
                   PhoneNumField(phoneNmbrController: _phoneNmbrController),
                   SizedBox(height: 20.h),
@@ -140,3 +160,8 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 }
+
+final List<ServiceProAvail> serviceProAvail = [
+  ServiceProAvail(id: 1, title: "Services Provider"),
+  ServiceProAvail(id: 2, title: "Services Avail")
+];
