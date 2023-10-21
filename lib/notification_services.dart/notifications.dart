@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 class NotifikationService {
@@ -14,8 +15,17 @@ class NotifikationService {
             criticalAlert: true);
     if (notificationSettings.authorizationStatus ==
         AuthorizationStatus.authorized) {
+      print('permission is granted');
     } else if (notificationSettings.authorizationStatus ==
-        AuthorizationStatus.authorized) {
-    } else {}
+        AuthorizationStatus.provisional) {
+      print('permission is granted provisional permission');
+    } else {
+      AppSettings.openAppSettings();
+    }
+  }
+
+  Future<String> getDeviceToken() async {
+    String? token = await firebaseMessaging.getToken();
+    return token!;
   }
 }

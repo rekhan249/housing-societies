@@ -18,6 +18,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     notifikationService.reqstNotificationPermission();
+    notifikationService.getDeviceToken().then((value) {
+      print('device token $value');
+    });
     super.initState();
   }
 

@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:housing_society/bottom_nav/bottom_nav_user.dart';
 import 'package:housing_society/pages_screen/login_page.dart';
 import 'package:housing_society/providers/addservices_provide.dart';
 import 'package:housing_society/providers/date_provider.dart';
@@ -15,7 +17,6 @@ import 'package:housing_society/providers/rating_provider.dart';
 import 'package:housing_society/providers/serviceProAvail_provider.dart';
 import 'package:housing_society/providers/signup_provider.dart';
 import 'package:housing_society/routes/route_manage.dart';
-import 'package:housing_society/society_service/payment_method.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -53,9 +54,9 @@ class MyApp extends StatelessWidget {
             ChangeNotifierProvider(
                 create: (context) => ProfileDetailProvider()),
             ChangeNotifierProvider(create: (context) => GalleryImageProvider()),
-            ChangeNotifierProvider(create: (context) => GoogleSignInProvider()),
             ChangeNotifierProvider(create: (context) => DateProvider()),
             ChangeNotifierProvider(create: (context) => RatingProvider()),
+            ChangeNotifierProvider(create: (context) => GoogleSignInProvider()),
             ChangeNotifierProvider(create: (context) => AddServicesProvider()),
             ChangeNotifierProvider(
                 create: (context) => GenderDropDownProvider()),
