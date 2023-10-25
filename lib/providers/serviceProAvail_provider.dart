@@ -1,6 +1,6 @@
-// ignore_for_file: prefer_final_fields
+// ignore_for_file: file_names
 
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:housing_society/models/radio_model.dart';
 
 class ServiceProAvailProvider with ChangeNotifier {
@@ -11,6 +11,5 @@ class ServiceProAvailProvider with ChangeNotifier {
   setSelectedRadioTile(value) {
     _selectedValue = value;
     notifyListeners();
-    print(_selectedValue!.title);
   }
 }

@@ -2,12 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:housing_society/models/services_model.dart';
+import 'package:housing_society/society_service/services_detail.dart';
 
-class AddServicesProvider with ChangeNotifier {
+class UpdateServicesProvider with ChangeNotifier {
   final _firestore = FirebaseFirestore.instance;
   bool isLoader = false;
   // ignore: non_constant_identifier_names
-  void AddServicesForm(
+  void updateServicesForm(
       BuildContext context,
       final nameController,
       final phoneNmbrController,
@@ -17,7 +18,8 @@ class AddServicesProvider with ChangeNotifier {
       final hourlyChargedController,
       // Uint8List profile,
       final servicesIdController,
-      final descController) async {
+      final descController,
+      final serviceId) async {
     isLoader = true;
     // String dowloadUrl = '';
     // final Reference firebaseStorage =
@@ -39,14 +41,19 @@ class AddServicesProvider with ChangeNotifier {
     /// for deconding and back to string from Uini8List
 //   String convertedString = utf8.decode(bytes);
 /* -------------------------------------------------------- */
-    String sId = DateTime.now().millisecondsSinceEpoch.toString();
+
     await _firestore
         .collection('services')
-        .doc(sId)
-        .set(serviceModel.toMap())
+        .doc(serviceId)
+        .update(serviceModel.toMap())
         .then((value) {
       isLoader = true;
-      Fluttertoast.showToast(msg: "Save Service Successfully");
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ServicesDetails(
+                  servicesDetails: serviceModel, serviceId: serviceId)));
+      Fluttertoast.showToast(msg: "Update Service Successfully");
     }).catchError((e) {
       Fluttertoast.showToast(msg: e!.message);
     });

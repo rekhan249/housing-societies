@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:housing_society/pages_screen/home_page.dart';
 import 'package:housing_society/pages_screen/profile_details.dart';
 import 'package:housing_society/society_service/all_services.dart';
-import 'package:housing_society/society_service/payment_method.dart';
 
 class BottomNavUser extends StatefulWidget {
   static const String routeName = 'bottom-user';
@@ -19,7 +18,6 @@ class _BottomNavUserState extends State<BottomNavUser> {
     ServicesScreen(),
     HomePage(),
     ProfileDetails(),
-    PaymentMethodology()
   ];
 
   void _onItemTapped(int index) {
@@ -37,24 +35,18 @@ class _BottomNavUserState extends State<BottomNavUser> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.room_service),
-            label: 'Services',
-            backgroundColor: Color.fromARGB(255, 185, 10, 86),
-          ),
+              icon: Icon(Icons.room_service),
+              label: 'Services',
+              backgroundColor: Colors.white),
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-            backgroundColor: Color.fromARGB(255, 185, 10, 86),
+            backgroundColor: Colors.white,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Profile',
-            backgroundColor: Color.fromARGB(255, 185, 10, 86),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.payment_outlined),
-            label: 'Payment',
-            backgroundColor: Color.fromARGB(255, 185, 10, 86),
+            backgroundColor: Colors.white,
           ),
         ],
         currentIndex: _selectedIndex,

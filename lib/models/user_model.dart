@@ -15,12 +15,12 @@ class UserModel {
       required this.password});
 
   factory UserModel.fromMap(map) => UserModel(
-      uid: map['uid'] ?? '',
-      userName: map['userName'] ?? '',
-      userType: map['userType'] ?? '',
-      phoneNum: map['phoneNum'] ?? '',
-      email: map['email'] ?? '',
-      password: map['password'] ?? '');
+      uid: map['uid'],
+      userName: map['userName'],
+      userType: map['userType'],
+      phoneNum: map['phoneNum'],
+      email: map['email'],
+      password: map['password']);
 
   Map<String, dynamic> toMap() {
     return {

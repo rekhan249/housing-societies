@@ -23,7 +23,6 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
-
   final _emailController = TextEditingController();
   final _phoneNmbrController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -48,10 +47,11 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   void dispose() {
-    _nameController.clear();
-    _phoneNmbrController.clear();
-    _emailController.clear();
-    _passwordController.clear();
+    _nameController.dispose();
+    _phoneNmbrController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    Provider.of<ServiceProAvailProvider>(context, listen: false).dispose();
     super.dispose();
   }
 
@@ -61,29 +61,29 @@ class _SignUpPageState extends State<SignUpPage> {
         Provider.of<PasswordProvider>(context, listen: false);
     Provider.of<ServiceProAvailProvider>(context, listen: false);
     return Scaffold(
-      backgroundColor: Colors.amber.shade100,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Form(
           key: _formKey,
           child: Padding(
-              padding: const EdgeInsets.only(left: 25, right: 25, bottom: 20),
+              padding: const EdgeInsets.only(
+                  left: 35, right: 35, bottom: 10, top: 10),
               child: ListView(
                 children: [
-                  SizedBox(height: 20.h),
+                  SizedBox(height: 10.h),
                   Center(
                       child: Image(
-                          image: const AssetImage("assets/images/login.png"),
-                          height: 250.h,
-                          width: 250.w)),
+                          image: const AssetImage("assets/images/society.jfif"),
+                          height: 200.h,
+                          width: 300.w)),
                   Center(
                       child: Text('Create Account Here',
                           style: TextStyle(
-                              fontSize: 18.sp,
+                              fontSize: 25.sp,
                               fontWeight: FontWeight.bold,
                               color: const Color.fromARGB(255, 5, 78, 139)))),
-                  SizedBox(height: 20.h),
+                  SizedBox(height: 15.h),
                   NameField(nameController: _nameController),
-                  SizedBox(height: 20.h),
                   for (final option in serviceProAvail)
                     Consumer<ServiceProAvailProvider>(
                       builder: (context, availPro, child) => ListTile(
@@ -97,16 +97,15 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
                     ),
-                  SizedBox(height: 20.h),
                   PhoneNumField(phoneNmbrController: _phoneNmbrController),
-                  SizedBox(height: 20.h),
+                  SizedBox(height: 15.h),
                   EmailField(emailController: _emailController),
-                  SizedBox(height: 20.h),
+                  SizedBox(height: 15.h),
                   Consumer<PasswordProvider>(
                       builder: ((context, pp, child) => PasswordField(
                           passwordController: _passwordController,
                           passwordProvider: passwordProvider))),
-                  SizedBox(height: 20.h),
+                  SizedBox(height: 15.h),
                   SizedBox(
                       height: 50.h,
                       width: double.infinity,

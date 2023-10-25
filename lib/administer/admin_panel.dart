@@ -4,9 +4,10 @@ import 'package:housing_society/administer/add_services.dart';
 import 'package:housing_society/administer/dashboard.dart';
 import 'package:housing_society/administer/delete_services.dart';
 import 'package:housing_society/administer/update_services.dart';
+import 'package:housing_society/models/services_model.dart';
 
 class AdminPanel extends StatefulWidget {
-  static const routeName = "/admin-panel";
+  static const String routeName = '/admin-panel';
   const AdminPanel({super.key});
 
   @override
@@ -59,7 +60,10 @@ class _AdminPanelState extends State<AdminPanel> {
             });
           } else if (item.route == UpdateServices.routeName) {
             setState(() {
-              selectedScreen = const UpdateServices();
+              final args =
+                  ModalRoute.of(context)!.settings.arguments as ServiceModel;
+              selectedScreen =
+                  UpdateServices(serviceId: args.sid, servicesData: args);
             });
           } else if (item.route == DeletedServices.routeName) {
             setState(() {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:housing_society/administer/update_services.dart';
 import 'package:housing_society/providers/addservices_provide.dart';
-import 'package:housing_society/providers/profile_pic_provider.dart';
 import 'package:housing_society/widgets/custom_formfields.dart';
 import 'package:housing_society/widgets/email_field.dart';
 import 'package:housing_society/widgets/name_field.dart';
@@ -36,34 +36,34 @@ class _AddServicesState extends State<AddServices> {
     _formKey.currentState!.save();
     Provider.of<AddServicesProvider>(context, listen: false).AddServicesForm(
         context,
-        _nameController.text,
-        _phoneNmbrController.text,
-        _emailController.text,
-        _addressController.text,
-        _typeServicesProviderController.text,
-        _hourlyChargedController.text,
-        Provider.of<GalleryImageProvider>(context, listen: false).profile,
-        _servicesIdController.text,
-        _descController.text);
+        _nameController.text.trim(),
+        _phoneNmbrController.text.trim(),
+        _emailController.text.trim(),
+        _addressController.text.trim(),
+        _typeServicesProviderController.text.trim(),
+        _hourlyChargedController.text.trim(),
+        // Provider.of<GalleryImageProvider>(context, listen: false).profile,
+        _servicesIdController.text.trim(),
+        _descController.text.trim());
   }
 
   @override
   void dispose() {
-    _nameController.clear();
-    _phoneNmbrController.clear();
-    _emailController.clear();
-    _phoneNmbrController.clear();
-    _hourlyChargedController.clear();
-    _addressController.clear();
-    _servicesIdController.clear();
-    _typeServicesProviderController.clear();
-    _descController.clear();
+    _nameController.dispose();
+    _phoneNmbrController.dispose();
+    _emailController.dispose();
+    _phoneNmbrController.dispose();
+    _hourlyChargedController.dispose();
+    _addressController.dispose();
+    _servicesIdController.dispose();
+    _typeServicesProviderController.dispose();
+    _descController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<GalleryImageProvider>(context, listen: false);
+    // Provider.of<GalleryImageProvider>(context, listen: false);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -71,39 +71,39 @@ class _AddServicesState extends State<AddServices> {
         child: Form(
           key: _formKey,
           child: Padding(
-            padding: const EdgeInsets.all(18.0),
+            padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 10.h),
             child: Column(
               children: [
-                SizedBox(height: 20.h),
+                SizedBox(height: 10.h),
                 Container(
-                  height: 40.h,
+                  height: 35.h,
                   width: double.infinity.w,
                   decoration: BoxDecoration(color: Colors.grey.shade300),
                   child: Center(
                     child: Text("Add Service",
                         style: TextStyle(
                             color: const Color.fromARGB(255, 14, 53, 85),
-                            fontSize: 25.sp,
+                            fontSize: 20.sp,
                             fontWeight: FontWeight.bold)),
                   ),
                 ),
-                SizedBox(height: 20.h),
-                Center(
-                    child: Consumer<GalleryImageProvider>(
-                        builder: (context, gIP, child) => GestureDetector(
-                            onTap: () async {
-                              await gIP.uploadImage();
-                            },
-                            child: Container(
-                                child: gIP.profile == null
-                                    ? CircleAvatar(
-                                        radius: 65.h,
-                                        child: Image.asset(
-                                            'assets/images/success.png'))
-                                    : CircleAvatar(
-                                        radius: 65.h,
-                                        backgroundImage:
-                                            MemoryImage(gIP.profile!)))))),
+                SizedBox(height: 15.h),
+                // Center(
+                //     child: Consumer<GalleryImageProvider>(
+                //         builder: (context, gIP, child) => GestureDetector(
+                //             onTap: () async {
+                //               await gIP.uploadImage();
+                //             },
+                //             child: Container(
+                //                 child: gIP.profile == null
+                //                     ? CircleAvatar(
+                //                         radius: 65.h,
+                //                         child: Image.asset(
+                //                             'assets/images/success.png'))
+                //                     : CircleAvatar(
+                //                         radius: 65.h,
+                //                         backgroundImage:
+                //                             MemoryImage(gIP.profile!)))))),
                 SizedBox(height: 15.h),
                 CustomTextFormField(
                   controller: _servicesIdController,
@@ -171,20 +171,42 @@ class _AddServicesState extends State<AddServices> {
                   value: 3,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: SizedBox(
-                      height: 56.h,
-                      width: double.infinity.w,
-                      child: TextButton(
-                          onPressed: () => _submitServiceDetailsForm(context),
-                          style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  const Color.fromARGB(255, 185, 10, 86))),
-                          child: Text('Add Service',
-                              style: TextStyle(
-                                  fontSize: 17.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white)))),
+                  padding: const EdgeInsets.all(08.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                          height: 56.h,
+                          width: 145.w,
+                          child: TextButton(
+                              onPressed: () =>
+                                  _submitServiceDetailsForm(context),
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      const Color.fromARGB(255, 2, 47, 69))),
+                              child: Text('Add Service',
+                                  style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white)))),
+                      SizedBox(
+                          height: 56.h,
+                          width: 145.w,
+                          child: TextButton(
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, UpdateServices.routeName);
+                              },
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      const Color.fromARGB(255, 2, 47, 69))),
+                              child: Text('Update Services',
+                                  style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white)))),
+                    ],
+                  ),
                 ),
               ],
             ),

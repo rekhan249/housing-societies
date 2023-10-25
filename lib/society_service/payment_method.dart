@@ -195,7 +195,6 @@ class _PaymentMethodologyState extends State<PaymentMethodology> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),
                           ),
-                          primary: const Color(0xff1b447b),
                         ),
                         child: Container(
                           margin: const EdgeInsets.all(12),
@@ -211,10 +210,7 @@ class _PaymentMethodologyState extends State<PaymentMethodology> {
                         ),
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            print('valid!');
-                          } else {
-                            print('invalid!');
-                          }
+                          } else {}
                         },
                       ),
                     ],

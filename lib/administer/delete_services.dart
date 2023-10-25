@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:housing_society/administer/update_services.dart';
+import 'package:housing_society/models/services_model.dart';
 
 class DeletedServices extends StatefulWidget {
   static const routeName = "/delete-sevices";
@@ -11,139 +13,153 @@ class DeletedServices extends StatefulWidget {
 }
 
 class _DeletedServicesState extends State<DeletedServices> {
+  bool isValue = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: 10.h),
-              Container(
-                height: 40.h,
-                width: double.infinity.w,
-                decoration: BoxDecoration(color: Colors.grey.shade300),
-                child: Center(
-                  child: Text("Service Deletion",
-                      style: TextStyle(
-                          color: const Color.fromARGB(255, 14, 53, 85),
-                          fontSize: 25.sp,
-                          fontWeight: FontWeight.bold)),
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Column(
+              children: [
+                SizedBox(height: 05.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30.w),
+                  child: Container(
+                    height: 35.h,
+                    width: double.infinity.w,
+                    decoration: BoxDecoration(color: Colors.grey.shade300),
+                    child: Center(
+                      child: Text("Service Updation",
+                          style: TextStyle(
+                              color: const Color.fromARGB(255, 14, 53, 85),
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.bold)),
+                    ),
+                  ),
                 ),
-              ),
-              StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('services')
-                    .snapshots(),
-                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.data == null) {
-                    return const Center(child: Text(" Data Doesn't exist"));
-                  }
-                  final servicesData = snapshot.data!.docs;
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: EdgeInsets.only(
-                              left: 5.w, right: 5.w, bottom: 20, top: 10),
-                          child: Card(
-                            elevation: 5,
+                StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('services')
+                      .snapshots(),
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (snapshot.data == null) {
+                      return const Center(child: Text(" Data Doesn't exist"));
+                    }
+                    final servicesData = snapshot.data!.docs;
+                    return ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: snapshot.data!.docs.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 0, vertical: 05.h),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 0, vertical: 05.h),
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20.0),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey.shade200,
+                                    offset: const Offset(0, 4),
+                                    blurRadius: 10.0)
+                              ],
+                            ),
                             child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Center(
-                                  child: Image.asset(
-                                      'assets/images/plumber.png',
-                                      height: 120.h,
-                                      width: 100.w),
-                                ),
-                                Padding(
-                                  padding:
-                                      EdgeInsets.only(left: 05.w, bottom: 10.h),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                              servicesData[index]
-                                                  ['serviceTypes'],
-                                              style: TextStyle(
-                                                  fontSize: 20.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: const Color.fromARGB(
-                                                      255, 185, 10, 86))),
-                                          SizedBox(width: 20.w),
-                                          TextButton(
-                                              onPressed: () {},
-                                              child: Text(
-                                                  '\$${servicesData[index]['hourlyRate']}'
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                      fontSize: 16.sp,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: Colors.black))),
-                                          IconButton(
-                                              onPressed: () {
-                                                productDeletion(
-                                                    servicesData[index].id);
-                                              },
-                                              icon: Icon(Icons.delete_forever,
-                                                  color: Colors.black,
-                                                  size: 20.sp)),
-                                        ],
-                                      ),
-                                      Text(
-                                          'Ph # ${servicesData[index]['phoneNumber']}',
-                                          style: TextStyle(
-                                              fontSize: 15.sp,
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.black)),
-                                      SizedBox(height: 02.h),
-                                      Container(
-                                        color: Colors.transparent,
-                                        width: 200,
-                                        child: Text(
-                                            '${servicesData[index]['address']}',
-                                            softWrap: true,
-                                            maxLines: 2,
+                                Expanded(
+                                  child: ListTile(
+                                    leading: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                        child: Image.network(
+                                            'https://images.pexels.com/photos/355164/pexels-photo-355164.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress&cs=tinysrgb',
+                                            width: 70.w)),
+                                    title: Text(
+                                        servicesData[index]["serviceTypes"]
+                                            .toString(),
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.bold)),
+                                    subtitle: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                            servicesData[index]["hourlyRate"]
+                                                .toString(),
                                             style: TextStyle(
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.black)),
-                                      ),
-                                      SizedBox(height: 02.h),
-                                      Container(
-                                        color: Colors.transparent,
-                                        width: 220,
-                                        child: Text(
-                                            '${servicesData[index]['desc']}',
-                                            softWrap: true,
-                                            maxLines: 3,
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black)),
-                                      ),
-                                    ],
+                                                color: const Color.fromARGB(
+                                                    255, 2, 47, 69),
+                                                fontSize: 14.sp)),
+                                      ],
+                                    ),
                                   ),
+                                ),
+                                Row(
+                                  children: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => UpdateServices(
+                                                    serviceId:
+                                                        servicesData[index].id,
+                                                    servicesData: ServiceModel(
+                                                        sid: servicesData[index]
+                                                            ['sid'],
+                                                        name:
+                                                            servicesData[index]
+                                                                ['name'],
+                                                        phoneNumber: servicesData[index]
+                                                            ['phoneNumber'],
+                                                        email: servicesData[index]
+                                                            ['email'],
+                                                        address:
+                                                            servicesData[index]
+                                                                ['address'],
+                                                        serviceTypes: servicesData[index]
+                                                            ['serviceTypes'],
+                                                        hourlyRate:
+                                                            servicesData[index]
+                                                                ['hourlyRate'],
+                                                        desc:
+                                                            servicesData[index]
+                                                                ['desc'])),
+                                              ));
+                                        },
+                                        child: const Icon(Icons.edit,
+                                            color: Color.fromARGB(
+                                                255, 3, 70, 125))),
+                                    TextButton(
+                                        onPressed: () {
+                                          productDeletion(
+                                              servicesData[index].id);
+                                        },
+                                        child: const Icon(Icons.delete_forever,
+                                            color: Color.fromARGB(
+                                                255, 3, 70, 125))),
+                                  ],
                                 ),
                               ],
                             ),
-                          ),
-                        );
-                      });
-                },
-              ),
-            ],
+                          );
+                        });
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

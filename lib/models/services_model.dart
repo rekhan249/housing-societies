@@ -1,4 +1,5 @@
-import 'dart:typed_data';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
 
 class ServiceModel {
   final String sid;
@@ -9,34 +10,21 @@ class ServiceModel {
   final String serviceTypes;
   final double hourlyRate;
   final String desc;
-  final Uint8List imageUrl;
+  // final List<Uint8List> imageUrl;
 
-  ServiceModel(
-      {required this.sid,
-      required this.name,
-      required this.phoneNumber,
-      required this.email,
-      required this.address,
-      required this.serviceTypes,
-      required this.hourlyRate,
-      required this.desc,
-      required this.imageUrl});
+  ServiceModel({
+    required this.sid,
+    required this.name,
+    required this.phoneNumber,
+    required this.email,
+    required this.address,
+    required this.serviceTypes,
+    required this.hourlyRate,
+    required this.desc,
+    // required this.imageUrl
+  });
 
-  factory ServiceModel.fromJson(Map<String, dynamic> json) {
-    return ServiceModel(
-      sid: json['sid'],
-      name: json['name'],
-      phoneNumber: json['phoneNumber'],
-      email: json['email'],
-      address: json['address'],
-      serviceTypes: json['serviceTypes'],
-      hourlyRate: json['hourlyRate'].toDouble(),
-      desc: json['desc'],
-      imageUrl: json['imageUrl'],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return {
       'sid': sid,
       'name': name,
@@ -46,7 +34,26 @@ class ServiceModel {
       'serviceTypes': serviceTypes,
       'hourlyRate': hourlyRate,
       'desc': desc,
-      'imageUrl': imageUrl
+      // 'imageUrl': imageUrl,
     };
   }
+
+  factory ServiceModel.fromMap(Map<String, dynamic> map) {
+    return ServiceModel(
+      sid: map['sid'] as String,
+      name: map['name'] as String,
+      phoneNumber: map['phoneNumber'] as String,
+      email: map['email'] as String,
+      address: map['address'] as String,
+      serviceTypes: map['serviceTypes'] as String,
+      hourlyRate: map['hourlyRate'] as double,
+      desc: map['desc'] as String,
+      // imageUrl: List<Uint8List>.from(map['imageUrl']),
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory ServiceModel.fromJson(String source) =>
+      ServiceModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

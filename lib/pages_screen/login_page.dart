@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
         Provider.of<PasswordProvider>(context, listen: false);
     Provider.of<GoogleSignInProvider>(context, listen: false);
     return Scaffold(
-      backgroundColor: Colors.amber.shade100,
+      backgroundColor: Colors.white,
       body: showLoader
           ? const Center(
               child: CircularProgressIndicator(),
@@ -62,27 +62,28 @@ class _LoginPageState extends State<LoginPage> {
               child: Form(
                 key: _formKey,
                 child: Padding(
-                  padding:
-                      const EdgeInsets.only(left: 25, right: 25, bottom: 20),
+                  padding: const EdgeInsets.only(
+                      left: 30, right: 30, bottom: 10, top: 20),
                   child: ListView(
                     children: [
-                      SizedBox(height: 40.h),
+                      SizedBox(height: 10.h),
                       Center(
                           child: Image(
-                              image:
-                                  const AssetImage("assets/images/login.png"),
-                              height: 250.h,
+                              image: const AssetImage(
+                                  "assets/images/society.jfif"),
+                              height: 180.h,
                               width: 250.w)),
+                      SizedBox(height: 10.h),
                       Center(
                           child: Text('Login Page',
                               style: TextStyle(
-                                  fontSize: 24.sp,
+                                  fontSize: 25.sp,
                                   fontWeight: FontWeight.bold,
                                   color:
                                       const Color.fromARGB(255, 5, 78, 139)))),
-                      SizedBox(height: 20.h),
+                      SizedBox(height: 15.h),
                       EmailField(emailController: _emailController),
-                      SizedBox(height: 20.h),
+                      SizedBox(height: 15.h),
                       Consumer<PasswordProvider>(
                           builder: ((context, pp, child) => PasswordField(
                               passwordController: _passwordController,

@@ -23,7 +23,6 @@ class GoogleSignInProvider with ChangeNotifier {
       notifyListeners();
       return user;
     } catch (error) {
-      print('Google Sign-In Error: $error');
       return null;
     }
   }

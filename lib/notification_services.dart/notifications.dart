@@ -15,10 +15,8 @@ class NotifikationService {
             criticalAlert: true);
     if (notificationSettings.authorizationStatus ==
         AuthorizationStatus.authorized) {
-      print('permission is granted');
     } else if (notificationSettings.authorizationStatus ==
         AuthorizationStatus.provisional) {
-      print('permission is granted provisional permission');
     } else {
       AppSettings.openAppSettings();
     }

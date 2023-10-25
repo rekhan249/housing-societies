@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:housing_society/pages_screen/home_page.dart';
+import 'package:housing_society/pages_screen/login_page.dart';
 import 'package:housing_society/providers/date_provider.dart';
 import 'package:housing_society/providers/dropdown_provider.dart';
 import 'package:housing_society/providers/profile_details_provider.dart';
@@ -46,23 +48,23 @@ class _ProfileDetailsState extends State<ProfileDetails> {
           .selectedCountry,
       Provider.of<CityCountryDropDownProvider>(context, listen: false)
           .selectedCity,
-      Provider.of<GalleryImageProvider>(context, listen: false).profile,
+      // Provider.of<GalleryImageProvider>(context, listen: false).profile,
     );
   }
 
   @override
   void dispose() {
-    _nameController.clear();
-    _phoneNmbrController.clear();
-    _cniController.clear();
-    _dateController.clear();
-    _addressController.clear();
+    _nameController.dispose();
+    _phoneNmbrController.dispose();
+    _cniController.dispose();
+    _dateController.dispose();
+    _addressController.dispose();
 
     super.dispose();
     Provider.of<GenderDropDownProvider>(context, listen: false).dispose();
     Provider.of<CityCountryDropDownProvider>(context, listen: false).dispose();
     Provider.of<CityCountryDropDownProvider>(context, listen: false).dispose();
-    Provider.of<GalleryImageProvider>(context, listen: false).dispose();
+    // Provider.of<GalleryImageProvider>(context, listen: false).dispose();
   }
 
   @override
@@ -77,11 +79,27 @@ class _ProfileDetailsState extends State<ProfileDetails> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.amber.shade100,
+        appBar: AppBar(
+            leading: IconButton(
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, LoginPage.routeName);
+                },
+                icon: const Icon(Icons.arrow_back, color: Colors.black)),
+            centerTitle: true,
+            title: Text('Skip and Fill Later',
+                style: TextStyle(color: Colors.black, fontSize: 18.sp)),
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, HomePage.routeName);
+                  },
+                  icon: const Icon(Icons.arrow_forward, color: Colors.black)),
+            ]),
+        backgroundColor: Colors.white,
         body: Form(
           key: _formKey,
           child: Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(20.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -95,22 +113,22 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                               fontSize: 30.sp,
                               fontWeight: FontWeight.bold))),
                   SizedBox(height: 20.h),
-                  Center(
-                      child: Consumer<GalleryImageProvider>(
-                          builder: (context, gIP, child) => GestureDetector(
-                              onTap: () async {
-                                await gIP.uploadImage();
-                              },
-                              child: Container(
-                                  child: gIP.profile == null
-                                      ? CircleAvatar(
-                                          radius: 65.h,
-                                          child: Image.asset(
-                                              'assets/images/success.png'))
-                                      : CircleAvatar(
-                                          radius: 65.h,
-                                          backgroundImage:
-                                              MemoryImage(gIP.profile!)))))),
+                  // Center(
+                  //     child: Consumer<GalleryImageProvider>(
+                  //         builder: (context, gIP, child) => GestureDetector(
+                  //             onTap: () async {
+                  //               await gIP.uploadImage();
+                  //             },
+                  //             child: Container(
+                  //                 child: gIP.profile == null
+                  //                     ? CircleAvatar(
+                  //                         radius: 65.h,
+                  //                         child: Image.asset(
+                  //                             'assets/images/success.png'))
+                  //                     : CircleAvatar(
+                  //                         radius: 65.h,
+                  //                         backgroundImage:
+                  //                             MemoryImage(gIP.profile!)))))),
                   SizedBox(height: 20.h),
                   NameField(nameController: _nameController),
                   SizedBox(height: 20.h),

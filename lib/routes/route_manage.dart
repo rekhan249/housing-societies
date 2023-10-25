@@ -6,6 +6,7 @@ import 'package:housing_society/administer/delete_services.dart';
 import 'package:housing_society/administer/update_services.dart';
 import 'package:housing_society/bottom_nav/bottom_nav_services.dart';
 import 'package:housing_society/bottom_nav/bottom_nav_user.dart';
+import 'package:housing_society/models/services_model.dart';
 import 'package:housing_society/pages_screen/home_page.dart';
 import 'package:housing_society/pages_screen/login_page.dart';
 import 'package:housing_society/pages_screen/profile_details.dart';
@@ -31,8 +32,12 @@ Route<dynamic> generateRoutes(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => const Dashboard());
     case AddServices.routeName:
       return MaterialPageRoute(builder: (context) => const AddServices());
+
     case UpdateServices.routeName:
-      return MaterialPageRoute(builder: (context) => const UpdateServices());
+      final args = settings.arguments as ServiceModel;
+      return MaterialPageRoute(
+          builder: (context) =>
+              UpdateServices(serviceId: args.sid, servicesData: args));
     case DeletedServices.routeName:
       return MaterialPageRoute(builder: (context) => const DeletedServices());
     case BottomNavServices.routeName:

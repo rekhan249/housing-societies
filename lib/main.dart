@@ -3,7 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:housing_society/bottom_nav/bottom_nav_user.dart';
 import 'package:housing_society/pages_screen/login_page.dart';
 import 'package:housing_society/providers/addservices_provide.dart';
 import 'package:housing_society/providers/date_provider.dart';
@@ -14,8 +13,10 @@ import 'package:housing_society/providers/password_provider.dart';
 import 'package:housing_society/providers/profile_details_provider.dart';
 import 'package:housing_society/providers/profile_pic_provider.dart';
 import 'package:housing_society/providers/rating_provider.dart';
+import 'package:housing_society/providers/requestprovider.dart';
 import 'package:housing_society/providers/serviceProAvail_provider.dart';
 import 'package:housing_society/providers/signup_provider.dart';
+import 'package:housing_society/providers/update_services.dart';
 import 'package:housing_society/routes/route_manage.dart';
 import 'package:provider/provider.dart';
 
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    User? user = getCurrentUser();
     return ScreenUtilInit(
       designSize: const Size(360, 690),
       minTextAdapt: true,
@@ -58,6 +60,10 @@ class MyApp extends StatelessWidget {
             ChangeNotifierProvider(create: (context) => RatingProvider()),
             ChangeNotifierProvider(create: (context) => GoogleSignInProvider()),
             ChangeNotifierProvider(create: (context) => AddServicesProvider()),
+            ChangeNotifierProvider(create: (context) => RequestProvider()),
+            ChangeNotifierProvider(create: (context) => ApprovedRequest()),
+            ChangeNotifierProvider(
+                create: (context) => UpdateServicesProvider()),
             ChangeNotifierProvider(
                 create: (context) => GenderDropDownProvider()),
             ChangeNotifierProvider(
@@ -73,8 +79,15 @@ class MyApp extends StatelessWidget {
               useMaterial3: true,
             ),
             onGenerateRoute: (settings) => generateRoutes(settings),
+            // home: user != null && user.displayName != null
+            //     ? const BottomNavUser() // Redirect to the main screen
+            //     : const LoginPage(),
             home: const LoginPage(),
           )),
     );
+  }
+
+  User? getCurrentUser() {
+    return FirebaseAuth.instance.currentUser;
   }
 }

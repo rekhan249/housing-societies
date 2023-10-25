@@ -1,146 +1,212 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:housing_society/models/services_model.dart';
+import 'package:housing_society/providers/update_services.dart';
+import 'package:housing_society/widgets/custom_formfields.dart';
+import 'package:housing_society/widgets/email_field.dart';
+import 'package:housing_society/widgets/name_field.dart';
+import 'package:housing_society/widgets/phone_field.dart';
+import 'package:provider/provider.dart';
 
 class UpdateServices extends StatefulWidget {
-  static const routeName = "/update-services";
-  const UpdateServices({super.key});
+  static const routeName = "/update-sevices";
+  final String serviceId;
+  final ServiceModel servicesData;
+  const UpdateServices(
+      {super.key, required this.serviceId, required this.servicesData});
 
   @override
   State<UpdateServices> createState() => _UpdateServicesState();
 }
 
 class _UpdateServicesState extends State<UpdateServices> {
+  final _formKey = GlobalKey<FormState>();
+  final _servicesIdController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _phoneNmbrController = TextEditingController();
+  final _addressController = TextEditingController();
+  final _typeServicesProviderController = TextEditingController();
+  final _descController = TextEditingController();
+  final _hourlyChargedController = TextEditingController();
+
+  @override
+  void initState() {
+    _servicesIdController.text = widget.servicesData.sid;
+    _nameController.text = widget.servicesData.name;
+    _emailController.text = widget.servicesData.email;
+    _phoneNmbrController.text = widget.servicesData.phoneNumber;
+    _addressController.text = widget.servicesData.address;
+    _typeServicesProviderController.text = widget.servicesData.serviceTypes;
+    _descController.text = widget.servicesData.desc;
+    _hourlyChargedController.text = widget.servicesData.hourlyRate.toString();
+    super.initState();
+  }
+
+  void _submitServiceDetailsForm(BuildContext context) {
+    bool isValid = _formKey.currentState!.validate();
+    FocusScope.of(context).unfocus();
+    if (!isValid) {
+      return;
+    }
+    _formKey.currentState!.save();
+    Provider.of<UpdateServicesProvider>(context, listen: false)
+        .updateServicesForm(
+      context,
+      _nameController.text.trim(),
+      _phoneNmbrController.text.trim(),
+      _emailController.text.trim(),
+      _addressController.text.trim(),
+      _typeServicesProviderController.text.trim(),
+      _hourlyChargedController.text.trim(),
+      // Provider.of<GalleryImageProvider>(context, listen: false).profile,
+      _servicesIdController.text.trim(),
+      _descController.text.trim(),
+      widget.serviceId,
+    );
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _phoneNmbrController.dispose();
+    _emailController.dispose();
+    _phoneNmbrController.dispose();
+    _hourlyChargedController.dispose();
+    _addressController.dispose();
+    _servicesIdController.dispose();
+    _typeServicesProviderController.dispose();
+    _descController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: 10.h),
-              Container(
-                height: 40.h,
-                width: double.infinity.w,
-                decoration: BoxDecoration(color: Colors.grey.shade300),
-                child: Center(
-                  child: Text("Service Updation",
-                      style: TextStyle(
-                          color: const Color.fromARGB(255, 14, 53, 85),
-                          fontSize: 25.sp,
-                          fontWeight: FontWeight.bold)),
+    // Provider.of<GalleryImageProvider>(context, listen: false);
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 10.h),
+            child: Column(
+              children: [
+                SizedBox(height: 10.h),
+                Container(
+                  height: 35.h,
+                  width: double.infinity.w,
+                  decoration: BoxDecoration(color: Colors.grey.shade300),
+                  child: Center(
+                    child: Text("Update Service",
+                        style: TextStyle(
+                            color: const Color.fromARGB(255, 14, 53, 85),
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.bold)),
+                  ),
                 ),
-              ),
-              StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('services')
-                    .snapshots(),
-                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.data == null) {
-                    return const Center(child: Text(" Data Doesn't exist"));
-                  }
-                  final servicesData = snapshot.data!.docs;
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: EdgeInsets.only(
-                              left: 5.w, right: 5.w, bottom: 20, top: 10),
-                          child: Card(
-                            elevation: 5,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Center(
-                                  child: Image.asset(
-                                      'assets/images/plumber.png',
-                                      height: 120.h,
-                                      width: 100.w),
-                                ),
-                                Padding(
-                                  padding:
-                                      EdgeInsets.only(left: 05.w, bottom: 10.h),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                              servicesData[index]
-                                                  ['serviceTypes'],
-                                              style: TextStyle(
-                                                  fontSize: 20.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: const Color.fromARGB(
-                                                      255, 185, 10, 86))),
-                                          SizedBox(width: 20.w),
-                                          TextButton(
-                                              onPressed: () {},
-                                              child: Text(
-                                                  '\$${servicesData[index]['hourlyRate']}'
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                      fontSize: 16.sp,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: Colors.black))),
-                                          IconButton(
-                                              onPressed: () {},
-                                              icon: Icon(Icons.edit,
-                                                  color: Colors.black,
-                                                  size: 20.sp))
-                                        ],
-                                      ),
-                                      Text(
-                                          'Ph # ${servicesData[index]['phoneNumber']}',
-                                          style: TextStyle(
-                                              fontSize: 15.sp,
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.black)),
-                                      SizedBox(height: 02.h),
-                                      Container(
-                                        color: Colors.transparent,
-                                        width: 200,
-                                        child: Text(
-                                            '${servicesData[index]['address']}',
-                                            softWrap: true,
-                                            maxLines: 2,
-                                            style: TextStyle(
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.black)),
-                                      ),
-                                      SizedBox(height: 02.h),
-                                      Container(
-                                        color: Colors.transparent,
-                                        width: 220,
-                                        child: Text(
-                                            '${servicesData[index]['desc']}',
-                                            softWrap: true,
-                                            maxLines: 3,
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black)),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      });
-                },
-              ),
-            ],
+                SizedBox(height: 15.h),
+                // Center(
+                //     child: Consumer<GalleryImageProvider>(
+                //         builder: (context, gIP, child) => GestureDetector(
+                //             onTap: () async {
+                //               await gIP.uploadImage();
+                //             },
+                //             child: Container(
+                //                 child: gIP.profile == null
+                //                     ? CircleAvatar(
+                //                         radius: 65.h,
+                //                         child: Image.asset(
+                //                             'assets/images/success.png'))
+                //                     : CircleAvatar(
+                //                         radius: 65.h,
+                //                         backgroundImage:
+                //                             MemoryImage(gIP.profile!)))))),
+                SizedBox(height: 15.h),
+                CustomTextFormField(
+                  controller: _servicesIdController,
+                  hintText: 'Enter Services Id',
+                  label: 'Services ID',
+                  icon: const Icon(
+                    Icons.numbers,
+                    color: Colors.black,
+                  ),
+                  onChanged: (String value) {},
+                  value: 1,
+                ),
+                SizedBox(height: 15.h),
+                NameField(nameController: _nameController),
+                SizedBox(height: 15.h),
+                EmailField(emailController: _emailController),
+                SizedBox(height: 15.h),
+                PhoneNumField(phoneNmbrController: _phoneNmbrController),
+                SizedBox(height: 15.h),
+                CustomTextFormField(
+                  controller: _addressController,
+                  hintText: 'Enter Address here',
+                  label: 'Address',
+                  icon: const Icon(
+                    Icons.add_home,
+                    color: Colors.black,
+                  ),
+                  onChanged: (String value) {},
+                  value: 2,
+                ),
+                SizedBox(height: 15.h),
+                CustomTextFormField(
+                  controller: _typeServicesProviderController,
+                  hintText: 'Enter Services Provided',
+                  label: 'Services Types',
+                  icon: const Icon(
+                    Icons.miscellaneous_services,
+                    color: Colors.black,
+                  ),
+                  onChanged: (String value) {},
+                  value: 1,
+                ),
+                SizedBox(height: 15.h),
+                CustomTextFormField(
+                  controller: _hourlyChargedController,
+                  hintText: 'Enter rupees per hour',
+                  label: 'Charges',
+                  icon: const Icon(
+                    Icons.price_change,
+                    color: Colors.black,
+                  ),
+                  onChanged: (String value) {},
+                  value: 1,
+                ),
+                SizedBox(height: 15.h),
+                CustomTextFormField(
+                  controller: _descController,
+                  hintText: 'Enter brief description',
+                  label: 'About Us',
+                  icon: const Icon(
+                    Icons.price_change,
+                    color: Colors.black,
+                  ),
+                  onChanged: (String value) {},
+                  value: 3,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(08.0),
+                  child: SizedBox(
+                      height: 56.h,
+                      width: double.infinity.w,
+                      child: TextButton(
+                          onPressed: () => _submitServiceDetailsForm(context),
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  const Color.fromARGB(255, 2, 47, 69))),
+                          child: Text('Update Services',
+                              style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)))),
+                ),
+              ],
+            ),
           ),
         ),
       ),
